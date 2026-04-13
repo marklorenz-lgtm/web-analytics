@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Webtracking Playground</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        button {
+            margin: 10px 0;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .box {
+            height: 800px;
+            background: linear-gradient(#f0f0f0, #d0d0d0);
+            margin-top: 20px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Webtracking Testseite</h1>
+    <p>Diese Seite dient dazu, verschiedene Tracking-Events lokal zu testen.</p>
+
+    <!-- BUTTON EVENTS -->
+    <h2>Buttons (Click Events)</h2>
+    <button id="btn1">Button 1</button>
+    <button id="btn2">Button 2</button>
+
+    <!-- LINK EVENT -->
+    <h2>Link (Navigation Event)</h2>
+    <a href="#" id="testLink">Klick mich (Fake-Link)</a>
+
+    <!-- FORM EVENT -->
+    <h2>Formular (Submit Event)</h2>
+    <form id="testForm">
+        <input type="text" placeholder="Name eingeben" required>
+        <button type="submit">Absenden</button>
+    </form>
+
+    <!-- SCROLL AREA -->
+    <h2>Scroll-Bereich</h2>
+    <div class="box">
+        Scrolle hier nach unten, um Scroll-Tracking zu testen.
+    </div>
+
+    <!-- JAVASCRIPT TRACKING MOCK
+    <script>
+        // Dummy Tracking Funktion
+        function trackEvent(eventName, details = {}) {
+            console.log("Tracking Event:", eventName, details);
+        }
+
+        // BUTTON TRACKING
+        document.getElementById("btn1").addEventListener("click", () => {
+            trackEvent("button_click", { button: "btn1" });
+        });
+
+        document.getElementById("btn2").addEventListener("click", () => {
+            trackEvent("button_click", { button: "btn2" });
+        });
+
+        // LINK TRACKING
+        document.getElementById("testLink").addEventListener("click", (e) => {
+            e.preventDefault();
+            trackEvent("link_click", { link: "testLink" });
+        });
+
+        // FORM TRACKING
+        document.getElementById("testForm").addEventListener("submit", (e) => {
+            e.preventDefault();
+            trackEvent("form_submit");
+        });
+
+        // SCROLL TRACKING (25%, 50%, 75%, 100%)
+        let scrollTracked = {
+            25: false,
+            50: false,
+            75: false,
+            100: false
+        };
+
+        window.addEventListener("scroll", () => {
+            let scrollTop = window.scrollY;
+            let docHeight = document.body.scrollHeight - window.innerHeight;
+            let scrollPercent = Math.round((scrollTop / docHeight) * 100);
+
+            [25, 50, 75, 100].forEach(threshold => {
+                if (scrollPercent >= threshold && !scrollTracked[threshold]) {
+                    scrollTracked[threshold] = true;
+                    trackEvent("scroll_depth", { percent: threshold });
+                }
+            });
+        });
+
+        // PAGE LOAD
+        window.addEventListener("load", () => {
+            trackEvent("page_view");
+        });
+    </script>
+        -->
+
+</body>
+</html>

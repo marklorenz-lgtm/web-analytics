@@ -32,7 +32,7 @@ Für den Google Tag Manager funktioniert das manchmal **nicht zuverlässig** mit
 
 👉 Nutze einen einfachen lokalen Server:
 
-### Option 1: Mit :contentReference[oaicite:2]{index=2}
+### Option 1: Mit Visual Studio
 
 1. Installiere Visual Studio Code https://code.visualstudio.com/
 2. Öffne den Ordner mit deiner `index.html`

@@ -59,8 +59,7 @@ python -m http.server
 
 # 🧩 Google Tag Manager (GTM) in die Testseite einbauen
 
-Diese Anleitung zeigt Schritt für Schritt, wie du den  
-:contentReference[oaicite:0]{index=0} (GTM)  
+Diese Anleitung zeigt Schritt für Schritt, wie du den GTM 
 in die bereitgestellte HTML-Testseite integrierst und nutzt.
 
 ---

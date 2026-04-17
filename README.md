@@ -50,9 +50,9 @@ Für den Google Tag Manager funktioniert das manchmal **nicht zuverlässig** mit
 
 ```bash
 python -m http.server
-
-
 ```
+3. Öffne im Browser:
+http://localhost:8000
 
 ---
 

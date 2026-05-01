@@ -103,3 +103,205 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>
 <!-- End Google Tag Manager -->
 ```
+
+
+
+---
+
+
+
+
+# 🧩 UTM-Parameter Script in die index.html einbauen
+Diese Anleitung zeigt dir Schritt für Schritt, wie du nach dem Google Tag Manager zusätzlich das UTM-/Referrer-Script in deine Testseite integrierst.
+Das Script sorgt dafür, dass Besucherquellen wie:
+
+
+Google Organic
+
+
+Bing
+
+
+Social Media
+
+
+ChatGPT / Perplexity
+
+
+Direct Traffic
+
+
+Referral Webseiten
+
+
+automatisch erkannt und als UTM-Parameter in der URL gespeichert werden.
+
+✅ Voraussetzung
+Deine index.html enthält bereits den Google Tag Manager.
+Wenn nicht, zuerst GTM einbauen.
+
+📍 Wo kommt das Script hin?
+Das Script kommt in den <head> Bereich, idealerweise:
+✅ nach dem GTM Script
+✅ vor </head>
+
+## 🧱 Beispiel Aufbau
+So sieht deine index.html dann ungefähr aus:
+```<html>
+<head>
+
+<!-- Google Tag Manager -->
+<script>
+... dein GTM Code ...
+</script>
+
+<!-- UTM Script hier einfügen -->
+<script>
+...
+</script>
+
+</head>
+
+<body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript>...</noscript>
+
+</body>
+</html>
+```
+
+## 🛠 Schritt für Schritt
+
+## 1. index.html öffnen
+
+Öffne deine Datei in:
+
+Visual Studio Code
+Notepad++
+Editor
+Editor
+
+## 2. Im <head> diesen Bereich suchen
+
+```
+</head>
+```
+
+## 3. Direkt davor folgendes Script einfügen (oder von der Repo laden und dann dort kopieren und einfügen)
+
+```<script>
+(function () {
+const params = new URLSearchParams(window.location.search);
+const ref = document.referrer;
+
+const isInitialized = sessionStorage.getItem("utm_initialized");
+
+const SEARCH_ENGINES = {
+"google.com": "google",
+"bing.com": "bing",
+"yahoo.com": "yahoo",
+"duckduckgo.com": "duckduckgo",
+"search.brave.com": "brave",
+"ecosia.org": "ecosia"
+};
+
+const AI_SOURCES = {
+"chat.openai.com": "chatgpt",
+"chatgpt.com": "chatgpt",
+"perplexity.ai": "perplexity",
+"claude.ai": "claude"
+};
+
+const SOCIAL_SOURCES = {
+"facebook.com": "facebook",
+"instagram.com": "instagram",
+"x.com": "twitter",
+"linkedin.com": "linkedin"
+};
+
+function match(ref, map) {
+for (const d in map) {
+if (ref.includes(d)) return map[d];
+}
+return null;
+}
+
+let source = params.get("utm_source");
+let medium = params.get("utm_medium");
+let campaign = params.get("utm_campaign");
+
+if (source) {
+sessionStorage.setItem("utm_source", source);
+sessionStorage.setItem("utm_medium", medium || "");
+sessionStorage.setItem("utm_campaign", campaign || "");
+sessionStorage.setItem("utm_initialized", "true");
+}
+
+else if (!isInitialized) {
+
+if (ref) {
+const search = match(ref, SEARCH_ENGINES);
+const ai = match(ref, AI_SOURCES);
+const social = match(ref, SOCIAL_SOURCES);
+
+if (search) {
+source = search;
+medium = "organic";
+}
+else if (ai) {
+source = ai;
+medium = "ai_referral";
+}
+else if (social) {
+source = social;
+medium = "social";
+}
+else {
+source = new URL(ref).hostname;
+medium = "referral";
+}
+}
+else {
+source = "direct";
+medium = "";
+}
+
+sessionStorage.setItem("utm_source", source);
+sessionStorage.setItem("utm_medium", medium);
+sessionStorage.setItem("utm_campaign", "");
+sessionStorage.setItem("utm_initialized", "true");
+}
+
+const storedSource = sessionStorage.getItem("utm_source");
+const storedMedium = sessionStorage.getItem("utm_medium");
+const storedCampaign = sessionStorage.getItem("utm_campaign");
+
+const urlParams = new URLSearchParams(window.location.search);
+
+if (!urlParams.get("utm_source") && storedSource) {
+urlParams.set("utm_source", storedSource);
+if (storedMedium) urlParams.set("utm_medium", storedMedium);
+if (storedCampaign) urlParams.set("utm_campaign", storedCampaign);
+
+window.history.replaceState(
+{},
+"",
+window.location.pathname + "?" + urlParams.toString()
+);
+}
+
+})();
+</script>
+```
+
+## 💾 4. Datei speichern
+
+Dann speichern:
+
+index.html
+
+
+## ▶️ 5. Testseite starten
+
+Mit Live Server oder lokalem Webserver öffnen.

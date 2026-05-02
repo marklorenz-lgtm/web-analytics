@@ -190,7 +190,8 @@ Editor
 
 ## 3. Direkt davor folgendes Script einfügen (oder von der Repo laden und dann dort kopieren und einfügen)
 
-```<script>
+```
+<script>
 (function () {
 const params = new URLSearchParams(window.location.search);
 const ref = document.referrer;

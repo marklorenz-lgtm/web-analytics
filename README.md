@@ -1,4 +1,46 @@
-﻿# 🧩 Google Tag Manager (GTM) in die Testseite einbauen
+
+ # Python Setup in VS Code (Mac & Windows)
+
+Diese Anleitung beschreibt, wie Python korrekt installiert und in Visual Studio Code eingerichtet wird – für macOS und Windows.
+
+---
+
+## 1. Python installieren
+
+### macOS
+1. Python herunterladen:  
+   https://www.python.org/downloads/
+2. Installer ausführen und den Schritten folgen.
+3. Standardoptionen sind ausreichend.
+4. Installation prüfen:
+
+```bash
+python3 --version
+```
+
+ ### Windows
+1. Python herunterladen:
+https://www.python.org/downloads/
+2. Installer starten.
+3. Wichtig: Haken setzen bei “Add Python to PATH”
+4. Installation abschließen.
+5. Installation prüfen:
+ 
+```bash
+python --version
+``` 
+
+ ## 2. Python Extension installieren
+VS Code öffnen
+1. Extensions öffnen:
+2. Mac: Cmd + Shift + X
+3. Windows: Ctrl + Shift + X
+4. Nach Python (Microsoft) suchen
+5. Installieren
+
+---
+ 
+ # 🧩 Google Tag Manager (GTM) in die Testseite einbauen
 
 Diese Anleitung zeigt dir Schritt für Schritt, wie du den GTM  
 in die bereitgestellte HTML-Testseite integrierst und nutzt.

@@ -150,6 +150,83 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 
 ---
 
+## 🍪 3. Kostenlosen Cookiebanner integrieren (Consent Management)
+Um Tracking datenschutzkonform zu testen, benötigst du einen Cookiebanner, der die Einwilligung (Consent) der Nutzer abfragt.
+
+Beliebte Anbieter mit kostenlosen Tarifen (Free Tiers):
+Cookiebot: Kostenlos für eine Domain und weniger als 50 Unterseiten. Sehr gute GTM-Integration.
+
+Klaro!: Open-Source und komplett kostenlos, erfordert aber manuelles Hosting des Scripts.
+
+Usercentrics: Bietet ein kostenloses Kontingent für kleine Webseiten an.
+
+Consent Manager: Kostenlose Basis-Version mit bis zu 10.000 Seitenaufrufen/Monat.
+
+In dieser Anleitung nutzen wir Cookiebot als Beispiel, da es nativ mit dem Google Consent Mode v2 harmoniert. Registriere dich vorab gratis bei Cookiebot und erstelle eine Domain-Gruppe, um deine Domain-ID (z. B. 00000000-0000-0000-0000-000000000000) zu erhalten.
+
+Wähle einen der folgenden zwei Wege für den Einbau:
+
+### 🛠️ Variante 1: On-Page Einbau (Direkt im HTML-Code)
+Dies ist die sicherste Methode, da der Banner geladen wird, noch bevor andere Skripte blockiert werden müssen.
+
+#### 1. In den <head> einfügen
+Der Cookiebot-Code muss als allererstes Skript im <head> platziert werden – noch vor dem Google Tag Manager Script!
+
+HTML
+```<head>
+<!-- Cookiebot Consent Management -->
+<script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="DEINE-COOKIEBOT-ID" data-blockingmode="auto" type="text/javascript"></script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': ...
+```
+
+#### 2. Erklärung der Attribute
+data-cbid: Ersetze DEINE-COOKIEBOT-ID mit deiner echten ID aus dem Cookiebot-Dashboard.
+
+data-blockingmode="auto": Erkennt Tracking-Skripte automatisch und blockiert sie, bis der Nutzer zustimmt.
+
+### 🏢 Variante 2: Einbau über den Google Tag Manager (GTM)
+Wenn du den Quellcode der Seite nicht ständig bearbeiten möchtest, kannst du den Banner direkt über den GTM ausspielen.
+
+#### 1. Vorbereitung im HTML-Code (Standard-Einwilligung festlegen)
+Damit Google-Tags nicht feuern, bevor die Einwilligung erteilt wurde, fügst du das offizielle Google Consent Mode Standard-Skript vor dem GTM-Code im <head> ein:
+
+HTML
+```
+<script>
+// Standardmäßig alles auf "denied" (abgelehnt) setzen
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500
+});
+</script>
+```
+
+#### 2. Einrichtung im GTM-Dashboard
+Gehe im GTM auf Vorlagen (Templates) -> Tag-Vorlagen durchsuchen.
+
+Suche nach "Cookiebot CMP" und füge es zum Arbeitsbereich hinzu.
+
+Gehe auf Tags -> Neu -> Tag-Konfiguration.
+
+Wähle das neu hinzugefügte Cookiebot CMP Tag aus.
+
+Trage deine Cookiebot ID in das entsprechende Feld ein.
+
+Aktiviere das Häkchen bei Enable Google Consent Mode integration.
+
+Als Trigger (Auslöser) wählst du zwingend "Consent Initialization - All Pages" (Einwilligungsinitialisierung - Alle Seiten).
+
+Speichern und Container Senden/Veröffentlichen.
+
+
+---
 
 
 
